@@ -1,0 +1,27 @@
+
+.login_container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h1{
+    color: #fff;
+  }
+}
+.login_form_wrap{
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px !important;
+  height: 400px;
+  :global(.login-form){
+    max-width: 300px;
+  }
+  :global(.login-form-forgot) {
+    float: right;
+  }
+  :global(.login-form-button) {
+    width: 100%;
+  }
+}
