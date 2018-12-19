@@ -4,7 +4,7 @@ import App from './containers';
 import { Provider } from 'react-redux';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
-import 'antd/dist/antd.css';
+
 const mountNode = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>

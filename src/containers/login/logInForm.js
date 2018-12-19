@@ -1,16 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 const FormItem = Form.Item;
 
-class LoginFormCom extends React.Component {
+class LoginFormCom extends Component {
   handleLogin = (e) => {
     const self = this;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.login(values.userName,values.password)
+        self.props.login(values.userName,values.password)
       }
     });
   }

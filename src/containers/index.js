@@ -4,7 +4,9 @@ import Front from './front';
 import Admin from './admin';
 import Login from './login';
 
-import '../style/reset.css';
+import '../style/reset.scss';
+import '../style/common.scss';
+
 import {
     BrowserRouter,
     Route,
