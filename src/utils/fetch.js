@@ -2,35 +2,26 @@ import axios from 'axios';
 
 let config = {
     baseURL: '/api',
-    transformRequest: [
-        function (data) {
-            let ret = '';
-            for (let it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-        }
-    ],
-    transformResponse: [
-        function (data) {
-            return data
-        }
-    ],
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    },
     timeout: 10000,
-    responseType: 'json'
 };
 
-axios.interceptors.response.use(function(res){
-    //相应拦截器
-    return res.data;
-});
-export function get(url) {
-    return axios.get(url, config);
-}
+const axiosInstance = axios.create(config);
+// Add a request interceptor
+axiosInstance.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
+ 
+// Add a response interceptor
+axiosInstance.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+  });
 
-export function post(url, data) {
-    return axios.post(url, data, config);
-}
+export default axiosInstance;

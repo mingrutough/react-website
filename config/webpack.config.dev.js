@@ -371,6 +371,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+        $domain: [path.resolve(__dirname, '../src/config/domain.js'), 'default'],
+        $axios: [path.resolve(__dirname, '../src/utils/fetch.js'), 'default'],        
+    }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,

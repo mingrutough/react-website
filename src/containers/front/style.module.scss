@@ -1,37 +1,11 @@
-.nav_container{
-  display: flex;
-  height: 56px;
-  justify-content: space-between;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 0 20px;
-  :global{
-    .wrap{
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-    .logo-cont{
-      font-size: 28px;
-      color: #ea6f5a;
-      padding-right: 20px;
-    }
-    .mr-color-picker{
-      position: absolute !important;
-      right: 56px;
-      top: 66px;
-    }
-    .user-cont{
-      margin: 0 10px;
-    }
-    .r-item{
-      height: 56px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      &:hover{
-        background-color: #f5f5f5;
-      }
-    }
+.container {
+  width: 980px;
+  margin: 0 auto;
+  min-height: calc(100vh - 56px);
+}
+
+@media (max-width: 1068px) {
+  .container {
+    width: 750px;
   }
 }
