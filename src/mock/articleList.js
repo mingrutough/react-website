@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-Mock.mock(/\/api\/front\/articleList/, 'get', function(){
+Mock.mock(/mock\/api\/front\/articleList/, 'get', function(){
   const data = Mock.mock({
     "array|3" : [
       {

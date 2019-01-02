@@ -41,10 +41,11 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log('state', state);
     return {
-        notification: state.globalState.msg,
-        isFetching: state.globalState.isFetching,
-        userInfo: state.globalState.userInfo,
+        notification: state.global.msg,
+        isFetching: state.global.isFetching,
+        userInfo: state.global.userInfo,
     };
 }
 function mapDispatchToProps(dispatch) {

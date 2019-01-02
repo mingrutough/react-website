@@ -1,4 +1,4 @@
-const $domain = 'haha'; // mock
+const $domain = 'mock'; // mock
 // const $domain = 'http://.com'; // dev
 
 

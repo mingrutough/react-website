@@ -5,7 +5,8 @@ const initialState = {
       type: 1,//0失败 1成功
       content: ''
   },
-  userInfo: {}
+  userInfo: {},
+  mainColor: '#ea6f5a', // 网站主题色
 };
 
 export const actionsTypes = {
@@ -15,7 +16,8 @@ export const actionsTypes = {
     USER_REGISTER: "USER_REGISTER", //注册
     RESPONSE_USER_INFO: "RESPONSE_USER_INFO", // 收到登陆信息
     SET_MESSAGE: "SET_MESSAGE", // 设置全局提醒
-    USER_AUTH:"USER_AUTH"
+    USER_AUTH: "USER_AUTH",
+    SET_MAIN_COLOR: 'SET_MAIN_COLOR', // 设置网站主体颜色
 };
 
 export const actions = {
@@ -43,6 +45,12 @@ export const actions = {
         return{
             type:actionsTypes.USER_AUTH
         }
+    },
+    set_main_color: function (color) {
+        return {
+            type: actionsTypes.SET_MAIN_COLOR,
+            color
+        }
     }
 };
 
@@ -67,7 +75,13 @@ const reducer = (state = initialState, action) => {
             };
         case actionsTypes.RESPONSE_USER_INFO:
             return {
-                ...state, userInfo: action.data
+                ...state,
+                userInfo: action.data
+            };
+        case actionsTypes.SET_MAIN_COLOR:
+            return {
+                ...state,
+                mainColor: action.color
             };
         default:
             return state

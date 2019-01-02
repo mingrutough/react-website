@@ -1,8 +1,9 @@
 .container{
+  padding-top: 20px;
   :global{
     .layout-col{
       min-height: 200px;
-      border: 1px solid #000;
+      // border: 1px solid #000;
     }
     .tag-container{
       padding: 10px;

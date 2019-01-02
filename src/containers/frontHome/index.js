@@ -3,10 +3,14 @@ import { Row, Col } from 'antd';
 import style from './style.module.scss';
 import TagList from './tagList';
 import ArticleList from './articleList';
+
 class FrontHome extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
+  }
+  componentDidMount() {
+    const { store } = this.context;
   }
   render() {
     return (

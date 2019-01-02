@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import NotFound from '@/components/404';
 import FrontHome from '../frontHome';
+import FrontNewBlog from '../frontNewBlog';
+import FrontSelfPage from '../frontSelfPage';
+import FrontSetting from '../frontSetting';
+import FrontBlogDetail from '../frontBlogDetail';
 import style from './style.module.scss';
 import Nav from './nav';
 import {
@@ -21,6 +25,10 @@ class Front extends Component {
         <div className={style.container}>
           <Switch>
             <Route path="/" exact component={FrontHome}></Route>
+            <Route path="/newBlog" exact component={FrontNewBlog}></Route>
+            <Route path="/my" exact component={FrontSelfPage}></Route>
+            <Route path="/setting" exact component={FrontSetting}></Route>  
+            <Route path="/blog/:id"  component={FrontBlogDetail}></Route>                        
             <Route component={NotFound}></Route>                        
           </Switch>
         </div>

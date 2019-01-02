@@ -26,6 +26,7 @@ class TagList extends Component {
         {
           this.tagsArr.map((item) => { 
             return <Tag
+              style={{marginBottom: '10px'}}
               color={item === this.state.choosedTag ? '#ea6f5a' : ''} 
               key={item}
               onClick={this.handleTagItemClick.bind(this, item)}

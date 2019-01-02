@@ -1,51 +1,68 @@
 import React, { Component } from 'react';
 import style from './style.module.scss';
+import {
+  Link
+} from 'react-router-dom'
 import { Input, Icon, Avatar, Menu, Dropdown } from 'antd';
 import ColorPicker from './colorPicker';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const Search = Input.Search;
-const fNavStyle = {fontSize: '26px', color: '#ea6f5a'};
-const SNavStyle = {marginRight: '10px', color: '#ea6f5a'};
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer">
-        <Icon type="user" style={SNavStyle}/>        
-        主页
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer">
-        <Icon type="setting" style={SNavStyle}/>
-        设置
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer">
-        <Icon type="poweroff" style={SNavStyle}/>
-        退出
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+const flex = { display: 'flex', alignItems: 'center' };
+
+const menuCreater = (mainColor) => { 
+  const SNavStyle = {marginRight: '10px', color: mainColor};  
+  return (
+          <Menu>
+            <Menu.Item>
+              <Link style={flex} to="/my">
+                <Icon type="user" style={SNavStyle}/>        
+                主页
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link style={flex} to="/setting">
+                <Icon type="setting" style={SNavStyle}/>
+                设置
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <a style={flex}>
+                <Icon type="poweroff" style={SNavStyle}/>
+                退出
+              </a>
+            </Menu.Item>
+          </Menu>
+        );
+}
 class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
       colorPickerShow: false,
     };
+    window.addEventListener('click', () => { 
+      this.setState({
+        colorPickerShow: false,
+      });    
+    });
   }
-  toggleColorPickerShow = () => { // 官网上叫做属性初始化器语法。
+  toggleColorPickerShow = (e) => { // 官网上叫做属性初始化器语法。
+    e.stopPropagation();
     this.setState({
       colorPickerShow: !this.state.colorPickerShow,
     });
   }
   render() {
+    const mainColor = this.props.mainColor;
     return (
       <div className={style.nav_container}>
         <div className="left wrap">
           <div className="logo-cont mr-cursor">
-            我们的歌
+            <Link to="/" style={{color: mainColor}}>
+            我们的歌            
+            </Link>
           </div>
           <div className="search-cont">
           <Search
@@ -60,18 +77,20 @@ class Nav extends Component {
           <ColorPicker show={this.state.colorPickerShow}></ColorPicker>
           <div className="styleConf-cont r-item" onClick={this.toggleColorPickerShow}>
             <Icon 
-            style={fNavStyle}
+            style={{fontSize: '26px', color: mainColor}}
             type="bg-colors" />
           </div>
-          <Dropdown overlay={menu}>
+          <Dropdown overlay={menuCreater(mainColor)}>
             <div className="user-cont r-item">
-                <Avatar style={{ backgroundColor: '#ea6f5a' }} icon="user" />
+                <Avatar style={{ backgroundColor: mainColor }} icon="user" />
             </div>
           </Dropdown>              
           <div className="newButton-cont r-item">
-            <Icon 
-            style={fNavStyle}              
-            type="file-add" />
+            <Link to="/newBlog">
+              <Icon 
+                style={{fontSize: '26px', color: mainColor}}              
+              type="file-add" />  
+            </Link>
           </div>
         </div>          
       </div>
@@ -80,4 +99,19 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+    console.log('Navstate', state);
+    return {
+        mainColor: state.global.mainColor,
+    };
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        // clear_msg: bindActionCreators(clear_msg, dispatch),
+        // user_auth: bindActionCreators(user_auth, dispatch)
+    };
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Nav);

@@ -1,9 +1,6 @@
 .container{
-    background: #ddd;
     display: flex;
-    align-items: center;
+    padding-top: 200px;
     justify-content: center;
-    position: absolute;
     width: 100%;
-    height: 100%;
 }
