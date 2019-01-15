@@ -21,7 +21,7 @@ class Login extends Component {
           <TabPane tab="登陆" key="1">
             <LogInform login={login}></LogInform>
           </TabPane>
-          <TabPane tab="注册" key="2" disabled>
+          <TabPane tab="注册" key="2">
             <RegisterForm register={register}></RegisterForm>
           </TabPane>
         </Tabs>
