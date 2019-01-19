@@ -16,23 +16,35 @@ class LoginFormCom extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const wrapLayout = {
+      wrapperCol:{
+            offset: 2,
+            span: 20
+          }
+    }
     return (
       <Form onSubmit={this.handleLogin} className="login-form">
-        <FormItem>
+        <FormItem
+          {...wrapLayout}  
+        >
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [{ required: true, message: 'Please input your Phone Number!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Phone Number" />
           )}
         </FormItem>
-        <FormItem>
+        <FormItem
+          {...wrapLayout}  
+        >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
-        <FormItem>
+        <FormItem
+          {...wrapLayout}  
+        >
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: false,

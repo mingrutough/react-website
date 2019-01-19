@@ -8,11 +8,17 @@ class RegistrationForm extends Component {
   state = {
     confirmDirty: false,
   };
+  register = (params) => {
+    $axios.post('register', params).then((res) => { 
+      console.log('res', res);
+    });
+  }
   handleSubmit = (e) => {
+    const self = this;
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        self.register(values);
       }
     });
   }
@@ -22,7 +28,7 @@ class RegistrationForm extends Component {
   }
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
+    if (value && value !== form.getFieldValue('passWord')) {
       callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
@@ -39,24 +45,16 @@ class RegistrationForm extends Component {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
+        span: 9,
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
+        span: 14,
       },
     };
     const tailFormItemLayout = {
       wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 14,
-          offset: 6,
-        },
+        span: 14,
+        offset: 10,
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
@@ -67,20 +65,26 @@ class RegistrationForm extends Component {
       </Select>
     );
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form"> 
+      <Form onSubmit={this.handleSubmit} className="register-form"> 
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="Invite Code"
           hasFeedback
         >
-          {getFieldDecorator('email', {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }],
+          {getFieldDecorator('inviteCode', {
+            rules: [{ required: true, message: 'Please input your Invite Code!' }],
           })(
             <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Phone Number"
+        >
+          {getFieldDecorator('phoneNumber', {
+            rules: [{ required: false, message: 'Please input your phone number!' }],
+          })(
+            <Input addonBefore={prefixSelector} />
           )}
         </FormItem>
         <FormItem
@@ -88,7 +92,7 @@ class RegistrationForm extends Component {
           label="Password"
           hasFeedback
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('passWord', {
             rules: [{
               required: true, message: 'Please input your password!',
             }, {
@@ -115,41 +119,17 @@ class RegistrationForm extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label={(
-            <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want other to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          )}
+          label="Nickname"
           hasFeedback
         >
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('nickName', {
             rules: [{ required: true, message: 'Please input your nickname!' }],
           })(
             <Input />
           )}
         </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Phone Number"
-        >
-          {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
-          })(
-            <Input addonBefore={prefixSelector} />
-          )}
-        </FormItem>
-        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>I have read the <a>agreement</a></Checkbox>
-          )}
-        </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" size="large">Register</Button>
+          <Button type="primary" htmlType="submit" size="large" >Register</Button>
         </FormItem>
       </Form>
     );

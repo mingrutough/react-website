@@ -16,7 +16,7 @@ class Login extends Component {
 
     return (
       <div className={style.login_container} style={{ background: `url(${logInImg})` }}>
-        <h1>组内共享平台</h1>
+        <h1>我们的歌</h1>
         <Tabs defaultActiveKey="1" className={style.login_form_wrap}>
           <TabPane tab="登陆" key="1">
             <LogInform login={login}></LogInform>
