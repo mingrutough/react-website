@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, message } from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -10,7 +10,9 @@ class RegistrationForm extends Component {
   };
   register = (params) => {
     $axios.post('register', params).then((res) => { 
-      console.log('res', res);
+      if (res.data.callStatus === 'SUCCEED') { 
+        message.success('注册成功!');
+      }
     });
   }
   handleSubmit = (e) => {
@@ -80,9 +82,10 @@ class RegistrationForm extends Component {
         <FormItem
           {...formItemLayout}
           label="Phone Number"
+          hasFeedback
         >
           {getFieldDecorator('phoneNumber', {
-            rules: [{ required: false, message: 'Please input your phone number!' }],
+            rules: [{ required: true, message: 'Please input your phone number!' }],
           })(
             <Input addonBefore={prefixSelector} />
           )}

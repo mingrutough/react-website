@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -9,11 +9,20 @@ class LoginFormCom extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        self.props.login(values.userName,values.password)
+        self.login({
+          phoneNumber: values.userName,
+          passWord: values.password
+        })
       }
     });
   }
-
+  login = (params) => {
+    $axios.post('logIn', params).then((res) => { 
+      if (res.data.callStatus === 'SUCCEED') { 
+        message.success('登陆成功!');
+      }
+    });
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const wrapLayout = {

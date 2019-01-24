@@ -1,8 +1,9 @@
 import axios from 'axios';
-
+import { message } from 'antd';
 let config = {
     baseURL: `${$domain}/api`,
     timeout: 10000,
+    withCredentials: true
 };
 
 const axiosInstance = axios.create(config);
@@ -18,6 +19,9 @@ axiosInstance.interceptors.request.use(function (config) {
 // Add a response interceptor
 axiosInstance.interceptors.response.use(function (response) {
     // Do something with response data
+  if (response.data.callStatus === 'FAILED') { 
+    message.error(response.data.msg);
+  }
     return response;
   }, function (error) {
     // Do something with response error

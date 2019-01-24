@@ -9,6 +9,7 @@ const TabPane = Tabs.TabPane;
 class Login extends Component {
   constructor(props) {
     super(props);
+    console.log('prps',props);
     this.state = {  };
   }
   render() {

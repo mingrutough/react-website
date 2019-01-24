@@ -3,8 +3,7 @@ import style from './style.module.scss';
 import {
   Link
 } from 'react-router-dom'
-import { Input, Icon, Avatar, Menu, Dropdown } from 'antd';
-import ColorPicker from './colorPicker';
+import { Input, Icon, Avatar, Menu, Dropdown, Button, Popover } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
@@ -37,75 +36,44 @@ const menuCreater = (mainColor) => {
           </Menu>
         );
 }
-class Nav extends Component {
+const publishContent = (props) => {
+  return (
+    <div></div>
+  );
+};
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorPickerShow: false,
     };
-    window.addEventListener('click', () => { 
-      this.setState({
-        colorPickerShow: false,
-      });    
-    });
-  }
-  toggleColorPickerShow = (e) => { // 官网上叫做属性初始化器语法。
-    e.stopPropagation();
-    this.setState({
-      colorPickerShow: !this.state.colorPickerShow,
-    });
   }
   render() {
-    const path = this.props.location.pathname;
     const mainColor = this.props.mainColor;
-    if (/newBlog/.test(path)) {
-      return null;
-    }
     return (
       <div className={style.nav_container}>
         <div className="left wrap">
           <div className="logo-cont mr-cursor">
-            <Link to="/" style={{color: mainColor}}>
-            我们的歌            
-            </Link>
-          </div>
-          <div className="search-cont">
-          <Search
-            disabled
-            placeholder="input search text"
-            onSearch={value => console.log(value)}
-            style={{ width: 200 }}
-          />
           </div>
         </div>
         <div className="right wrap">
-          <ColorPicker show={this.state.colorPickerShow}></ColorPicker>
-          <div className="styleConf-cont r-item" onClick={this.toggleColorPickerShow}>
-            <Icon 
-            style={{fontSize: '26px', color: mainColor}}
-            type="bg-colors" />
-          </div>
+          <Popover content={publishContent} title="发布文章">
+            <div className=" r-item">
+              <Button type="primary" size="small" trigger="click" placement="bottom">发布</Button>
+            </div>
+          </Popover>
           <Dropdown overlay={menuCreater(mainColor)}>
             <div className="user-cont r-item">
                 <Avatar style={{ backgroundColor: mainColor }} icon="user" />
             </div>
           </Dropdown>              
-          <div className="newButton-cont r-item">
-            <Link to="/newBlog">
-              <Icon 
-                style={{fontSize: '26px', color: mainColor}}              
-              type="file-add" />  
-            </Link>
-          </div>
         </div>          
-      </div>
-        
+      </div> 
     );
   }
 }
 
 function mapStateToProps(state) {
-    console.log('Navstate', state);
+    console.log('blogheaderState', state);
     return {
         mainColor: state.global.mainColor,
     };
@@ -116,7 +84,8 @@ function mapDispatchToProps(dispatch) {
         // user_auth: bindActionCreators(user_auth, dispatch)
     };
 }
-export default withRouter(connect(
+
+export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Nav));
+)(Header);
